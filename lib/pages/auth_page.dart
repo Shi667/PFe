@@ -1,19 +1,27 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pfe_1/pages/home_page.dart';
+import 'package:pfe_1/pages/login.dart';
 
-class AuthPage extends StatefulWidget {
+class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
 
   @override
-  State<AuthPage> createState() => _AuthPageState();
-}
-
-class _AuthPageState extends State<AuthPage> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Auth Page'),
-      ),
+      body: StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            //user logged in
+            if (snapshot.hasData) {
+              return HomePage();
+            }
+
+            //user not logged in
+            else {
+              return LoginPage();
+            }
+          }),
     );
   }
 }
