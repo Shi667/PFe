@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class Error extends StatelessWidget {
+  const Error({super.key});
 
   //sign out
 
@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
           IconButton(onPressed: signUserOut, icon: const Icon(Icons.logout))
         ]),
         body: const Center(
-          child: Text('H O M E   P A G E'),
+          child: Text('E R R O R   P A G E'),
         ));
   }
 }
