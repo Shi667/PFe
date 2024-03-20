@@ -15,7 +15,7 @@ class StudentHomePage extends StatelessWidget {
           IconButton(onPressed: signUserOut, icon: const Icon(Icons.logout))
         ]),
         body: const Center(
-          child: Text('S T U D E N T   H O M E   P A G E'),
+          child: Text('S T U D E N T   P A G E'),
         ));
   }
 }
