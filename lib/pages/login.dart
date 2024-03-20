@@ -17,13 +17,54 @@ class _LoginPageState extends State<LoginPage> {
   final passwordController = TextEditingController();
 
   // sign user in method
-  void signUserIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: emailController.text,
-      password: passwordController.text,
+
+  void signUserIn(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+    } catch (e) {
+      String errorMessage = 'An error occurred.';
+      if (e is FirebaseAuthException) {
+        switch (e.code) {
+          case 'wrong-password':
+          case 'user-not-found':
+          case 'invalid-credential':
+            errorMessage = 'Email or password is incorrect. Please try again.';
+            break;
+          default:
+            errorMessage = e.message ?? errorMessage;
+        }
+      }
+      showErrorMessage(context, errorMessage);
+    }
+  }
+
+  void showErrorMessage(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: const Color.fromARGB(255, 137, 134, 142),
+          title: const Text('Error', style: TextStyle(color: Colors.white)),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text(
+                  'OK',
+                  style: TextStyle(color: Colors.white),
+                )),
+          ],
+        );
+      },
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
@@ -58,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
           //Sign In Button
 
           SignInButton(
-            onTap: signUserIn,
+            onTap: () => signUserIn(context),
           ),
         ],
       ),

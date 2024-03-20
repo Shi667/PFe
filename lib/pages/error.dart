@@ -1,23 +1,38 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class Error extends StatelessWidget {
+class Error extends StatefulWidget {
   const Error({super.key});
 
-  //sign out
+  @override
+  State<Error> createState() => _ErrorState();
+}
 
-  void signUserOut() async {
-    await FirebaseAuth.instance.signOut();
-  }
-
+class _ErrorState extends State<Error> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Home Page'), actions: [
-          IconButton(onPressed: signUserOut, icon: const Icon(Icons.logout))
-        ]),
-        body: const Center(
-          child: Text('E R R O R   P A G E'),
-        ));
+      body: Center(child: showErrorMessage('An error occurred')),
+    );
+  }
+
+  showErrorMessage(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

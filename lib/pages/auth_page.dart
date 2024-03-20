@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pfe_1/pages/teacherpage.dart';
-import 'package:pfe_1/pages/error.dart';
 import 'package:pfe_1/pages/loadingpage.dart';
 import 'package:pfe_1/pages/login.dart';
 import 'package:pfe_1/pages/studenthomepage.dart';
@@ -34,10 +33,10 @@ class AuthPage extends StatelessWidget {
                     } else if (snapshot.data == 'student') {
                       return const StudentHomePage();
                     } else {
-                      return const Error(); // Return an error page if the user type is unknown
+                      return const LoginPage(); // Return the login page if the user type is unknown
                     }
                   } else if (snapshot.hasError) {
-                    return const Error(); // Return an error page if fetching the user type failed
+                    return const LoginPage(); // Return the login page if fetching the user type failed
                   } else {
                     return const LoadingPage(); // Return a loading page while fetching the user type
                   }
