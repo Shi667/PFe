@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: const Color.fromARGB(255, 137, 134, 142),
+          backgroundColor: const Color.fromARGB(255, 150, 114, 211),
           title: const Text('Error', style: TextStyle(color: Colors.white)),
           content: Text(message),
           actions: <Widget>[
@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Icon(
               Icons.account_circle,
               size: 150,
-              color: Colors.deepPurple,
+              color: Color.fromARGB(255, 150, 114, 211),
             ),
           ),
 
